@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="de23c03e-cb56-4af0-83e5-728e9736c6ee" name="Changes" comment="" />
+    <list default="true" id="de23c03e-cb56-4af0-83e5-728e9736c6ee" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../task02/src/lambdas/hello_world/handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/../task02/src/lambdas/hello_world/handler.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

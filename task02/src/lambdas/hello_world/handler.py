@@ -24,13 +24,15 @@ HANDLER = HelloWorld()
 
 def lambda_handler(event, context):
     PATH = '/hello'
-    path=event["rawPath"]
-    method=event["requestContext"]["http"]["method"]
-    is_valid = path== PATH
+    path = event["rawPath"]
+    method = event["requestContext"]["http"]["method"]
+    is_valid = path == PATH
 
     statusCode = is_valid and 200 or 400
-    message= is_valid and "Hello from Lambda" or f"Bad request syntax or unsupported method. Request path: {path}. HTTP method: {method}"
+    message = is_valid and "Hello from Lambda" or f"Bad request syntax or unsupported method. Request path: {path}. HTTP method: {method}"
     return {
-        "statusCode": statusCode,
-        "message": message
+        "body": {
+            "statusCode": statusCode,
+            "message": message
+        }
     }
