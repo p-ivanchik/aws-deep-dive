@@ -31,8 +31,8 @@ def lambda_handler(event, context):
     statusCode = is_valid and 200 or 400
     message = is_valid and "Hello from Lambda" or f"Bad request syntax or unsupported method. Request path: {path}. HTTP method: {method}"
     return {
-        "body": {
-            "statusCode": statusCode,
-            "message": message
-        }
+        "statusCode": statusCode,
+        "message": message,
+        "body": {"statusCode": statusCode,
+                 "message": message}
     }
