@@ -1,0 +1,48 @@
+Configuration of Role Chaining in AWS
+
+1. Configure proper permissions for the cmtr-891f3d2a-iam-ar-iam_role-assume role,
+   allowing it to assume the cmtr-891f3d2a-iam-ar-iam_role-readonly role.
+   Do not grant full administrator access!
+   assume-role-policy.json
+    {
+	"Version": "2012-10-17",
+	"Statement": [
+		{
+			"Sid": "Statement1",
+			"Effect": "Allow",
+			"Action": [
+				"sts:AssumeRole"
+			],
+			"Resource": [
+				"arn:aws:iam::905418349556:role/cmtr-891f3d2a-iam-ar-iam_role-readonly"
+			]
+		}
+	]
+    }
+    aws iam create-policy \
+        --policy-name the cmtr-891f3d2a-iam-ar-iam_role-assume-role-policy \
+        --policy-document file://`pwd`/assume-role-policy.json
+    aws iam attach-role-policy \
+        --role-name cmtr-891f3d2a-iam-ar-iam_role-assume \
+        --policy-arn arn:aws:iam::905418349556:policy/cmtr-891f3d2a-iam-ar-iam_role-assume-role-policy
+
+2. Grant full read-only access for the cmtr-891f3d2a-iam-ar-iam_role-readonly role. Please use an existing AWS policy and do not create your own.
+    aws iam attach-role-policy --role-name cmtr-891f3d2a-iam-ar-iam_role-readonly --policy-arn arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
+
+3. Configure the correct trust policy for the cmtr-891f3d2a-iam-ar-iam_role-readonly role
+   to allow it to be assumed by the cmtr-891f3d2a-iam-ar-iam_role-assume role.
+
+   Trust relationship TAB for cmtr-891f3d2a-iam-ar-iam_role-readonly
+ {
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::905418349556:role/cmtr-891f3d2a-iam-ar-iam_role-assume"
+            },
+            "Action": "sts:AssumeRole"
+        }
+    ]
+}
